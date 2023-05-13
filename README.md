@@ -1,16 +1,29 @@
-# cotizacion
+# Flutter Cotizaciones
+A project that surged because of the problem that I had when I wanted to quote 3d pieces that it was imprinted in a printer 3d 
 
-A new Flutter project.
+# How to Install
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+``` shell
+git clone https://github.com/YaelGF/FlutterCI.git
+```
 
-A few resources to get you started if this is your first Flutter project:
+``` shell
+flutter pub get
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+``` shell
+flutter build apk --release
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# License
+
+# Run the project
+
+## App
+![Cotizacion](/assets/cotizacion1.png)
+![Cotizacion](/assets/cotizacion2.png)
+![Cotizacion](/assets/cotizacion3.png)
+
+# License
+[Apache License 2.0]
