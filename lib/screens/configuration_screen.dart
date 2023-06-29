@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../widgets/widgets.dart';
 
@@ -16,6 +17,8 @@ class ConfigurationScreen extends StatelessWidget {
       'days_print':         5,
       'error_margin':       30,
       'filament_margin':    950,
+      'wear_print':         180,
+      'wear_cost':          500,
       'validation':         5,
       'validation_metric':  'days',
       'mattress':           2,
@@ -23,7 +26,21 @@ class ConfigurationScreen extends StatelessWidget {
     };
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Configuración')),
+      appBar: AppBar(
+        title: const Text('Configuración'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showCupertinoDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (context) => const ShowDialogHelpWidget(),
+              );
+            }, 
+            icon: const Icon(Icons.help)
+          )
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -38,19 +55,26 @@ class ConfigurationScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 CustomRowWidget(
                   customIputFieldLeft: CustomIputField(labelText: "Margen de ganacia", hintText: "Margen de ganancia", icon: Icons.money, formProperty: 'profits', formData: formData), 
-                  customIputFieldRight: CustomIputField(labelText: "Horas impresion", hintText: "Horas del dia", icon: Icons.lock_clock, formProperty: 'hours_print', formData: formData),
+                  customIputFieldRight: CustomIputField(labelText: "Horas impresion", hintText: "Horas del dia", icon: Icons.access_time, formProperty: 'hours_print', formData: formData),
                 ),
                 const SizedBox(height: 20),
                 CustomRowWidget(
-                  customIputFieldLeft: CustomIputField(labelText: "Dias de la semana", hintText: "Dias semanales", icon: Icons.calendar_month, formProperty: 'days_print', formData: formData), 
+                  customIputFieldLeft: CustomIputField(labelText: "Dias de la semana", hintText: "Dias semanales", icon: Icons.calendar_today, formProperty: 'days_print', formData: formData), 
                   customIputFieldRight: CustomIputField(labelText: "Margen de error", hintText: "Margen de error",helperText: "en porcentaje %", icon: Icons.error, formProperty: 'error_margin', formData: formData),
                 ),
                 const SizedBox(height: 20),
-                CustomIputField(labelText: "Margen filamento a usar", hintText: "Margen filamento",helperText: "en gramos ejemplo 950", icon: Icons.error, formProperty: 'filament_margin', formData: formData),
+                CustomIputField(labelText: "Margen filamento a usar", hintText: "Margen filamento",helperText: "en gramos ejemplo 950", icon: Icons.priority_high, formProperty: 'filament_margin', formData: formData),
+                const SizedBox(height: 20),
                 CustomRowWidget(
-                  customIputFieldLeft: CustomIputField(labelText: "Validacion", hintText: "Tiempo",helperText: "en dias", icon: Icons.watch, formProperty: 'validation', formData: formData),
+                  customIputFieldLeft: CustomIputField(labelText: "Desgaste impresora", hintText: "Desgaste impresora",helperText: "en dias", icon: Icons.priority_high, formProperty: 'wear_print', formData: formData),
+                  customIputFieldRight: CustomIputField(labelText: "Costo desgaste", hintText: "Costo desgaste",helperText: "en pesos", icon: Icons.attach_money, formProperty: 'wear_cost', formData: formData),
+                ),
+                const SizedBox(height: 20),
+                CustomRowWidget(
+                  customIputFieldLeft: CustomIputField(labelText: "Validacion", hintText: "Tiempo",helperText: "en dias", icon: Icons.check, formProperty: 'validation', formData: formData),
                   customIputFieldRight: DropdownButtonFormField(
                     decoration: InputDecoration(
+                      icon: const Icon(Icons.calendar_month),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)
                       ),
@@ -61,6 +85,7 @@ class ConfigurationScreen extends StatelessWidget {
                       DropdownMenuItem(value: "days", child: Text("Dias")),
                       DropdownMenuItem(value: "weeks", child: Text("Semanas")),
                     ], 
+                    validator: (value) => value == null ? "Seleccione una opcion" : null,
                     onChanged: 
                       (value) {
                         formData['validation_metric'] = value.toString();
@@ -69,9 +94,10 @@ class ConfigurationScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 CustomRowWidget(
-                  customIputFieldLeft: CustomIputField(labelText: "Colchon", hintText: "Tiempo colchon", icon: Icons.error, formProperty: 'mattress', formData: formData),
+                  customIputFieldLeft: CustomIputField(labelText: "Colchon", hintText: "Tiempo colchon", icon: Icons.av_timer, formProperty: 'mattress', formData: formData),
                   customIputFieldRight: DropdownButtonFormField(
                     decoration: InputDecoration(
+                      icon: const Icon(Icons.calendar_month),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)
                       ),
@@ -82,15 +108,19 @@ class ConfigurationScreen extends StatelessWidget {
                       DropdownMenuItem(value: "hours", child: Text("Horas")),
                       DropdownMenuItem(value: "days", child: Text("Dias")),
                     ], 
+                    validator: (value) => value == null ? "Seleccione una opcion" : null,
                     onChanged: 
                       (value) {
                         formData['mattress_metric'] = value.toString();
                       }
                   )
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 20),
+                const Text("Nota: Si no entiende algun campo, revise la session de ayuda"),
+                const SizedBox(height: 40),
 
                 ElevatedButton(onPressed: (){
+                  FocusScope.of(context).requestFocus(FocusNode());
                   if (!formKey.currentState!.validate()){
                     print("Formulario invalido");
                     return;
