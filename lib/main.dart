@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cotizacion/screens/cotization.dart';
+import 'screens/screens.dart';
+
 
 void main() {
   runApp(const MyApp());

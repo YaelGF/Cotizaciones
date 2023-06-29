@@ -33,6 +33,32 @@ class _CotizationScreenState extends State<CotizationScreen> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                 DropdownButtonFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Impresora',
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: 1, child: Text("Ender 3"),),
+                    DropdownMenuItem(value: 2, child: Text("Ender 3 Neo"),)
+                  ],
+                  onChanged: (value) => print(value),
+                ),
+                const SizedBox(height: padding),
+                DropdownButtonFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Tipo de impresión',
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: 1, child: Text("PLA"),),
+                    DropdownMenuItem(value: 2, child: Text("TPU"),),
+                    DropdownMenuItem(value: 3, child: Text("ABS"),),
+                    DropdownMenuItem(value: 4, child: Text("PETG"),)
+                  ],
+                  onChanged: (value) => print(value),
+                ),
+                const SizedBox(height: padding,),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
